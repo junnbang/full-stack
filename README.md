@@ -5,7 +5,7 @@ This project is split into 4 parts
 - Part 1: Create RESTFUL API and deploy endpoints.
 
 # Part 1
-A simple RESTFUL API that manages a list of items in a warehouse. This is done via GET, POST, PUT, DELETE API calls locally or through deployed endpoints using Postman.
+A simple RESTFUL API that manages a list of inventory items. This is done via GET, POST, PUT, DELETE API calls locally or through deployed endpoints using Postman.
 
 # Install
 - [npm](https://www.npmjs.com/get-npm)
