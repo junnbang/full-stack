@@ -33,7 +33,7 @@ mongoose.connect(DB_URL, DB_OPTIONS, (err) => {
 // Routes
 app.use('/api', apiRoutes)
 
-app.get('/', (req, res) => res.send('Hello World with Express'));
+app.get('/', (req, res) => res.send("Welcome to Jun Bang's server."));
 
 var port = process.env.PORT || 8080;
 var environment = process.env.Node_ENV;
