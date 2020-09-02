@@ -51,7 +51,7 @@ function getAnItem(req, res) {
 }
 
 function updateItem(req, res) {
-  Item.findByIdAndUpdate(req.params.item_id, req.body, function (err, existingItem) {
+  Item.findByIdAndUpdate(req.params.item_id, req.body, {new: true}, function (err, existingItem) {
     if (err) {
       res.send(err);
       return;
