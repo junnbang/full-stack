@@ -1,0 +1,25 @@
+{
+  "name": "resthub",
+  "version": "1.0.0",
+  "description": "An app to demonstrate Restful API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "SET Node_ENV=development& node index.js",
+    "dev": "SET Node_ENV=development& nodemon index.js",
+    "mongo": "mongod --dbpath=./data/db"
+  },
+  "keywords": [
+    "api",
+    "restful",
+    "json"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.2",
+    "nodemon": "^2.0.4"
+  }
+}
