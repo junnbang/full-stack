@@ -20,7 +20,7 @@ A simple RESTFUL API that manages a list of inventory items. This is done via GE
 3. To start the database (*Mongodb*), type `npm run mongo`. 
     > This Command Prompt must remain open for the **database** to run.
 4. To download the dependencies needed, open another Command Prompt in the same directory and type `npm install`.
-4. To start the server (*nodejs*), type `npm run dev`.
+5. To start the server (*nodejs*), type `npm run dev`.
     > This Command Prompt must remain open for the **server** to run. You should see the following result:
 
     ```
@@ -28,13 +28,29 @@ A simple RESTFUL API that manages a list of inventory items. This is done via GE
     [Database] Database connected successfully.
     [Database] Sample data added.
     ```
-5. And you're done! Open `Postman` and try out GET, POST, PUT and DEL API calls. Refer to the [API Calls](#Example-of-API-Calls-using-postman) for examples.
+6. And you're done! Open `Postman` and try out GET, POST, PUT and DEL API calls. Refer to the [API Calls](#Example-of-API-Calls-using-postman) below for examples.
 
-# Instructions on how to access deployed API
+# Deploying endpoints
+## Information of Deployed API
+- Server (*nodejs*) is deployed on `Amazon Web Services (AWS)`. 
+    > http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/
+- Database (*mongodb*) is deployed on `MongoDB Atlas`.
+
+## Instructions to access deployed endpoints using Postman
+1. To access the deployed endpoints, open up your browser or `Postman`, and enter the following links to do a GET request:
+
+    http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/api/items (To display all items)
+
+    http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/api/items/1 (To display item with id 1)
+
+    *It uses `/api/items` route, which is the same as the localhost.*
+2. For the other type of request, refer to the [API Calls](#Example-of-API-Calls-using-postman) below for examples. 
+    > Replace http://localhost:8080/ with
+    > http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/ in the examples.
 
 
 # Database Data Structure
-The database only consists of 1 data structure which is `items`. 
+The database only consists of 1 data structure which is `items`.
 
 It consists of the following fields: (FORMAT: [NAME : DATATYPE])
 - name: `string` (required)
@@ -58,7 +74,7 @@ Sample data:
 ```
 
 # Example of API Calls using Postman
-1. GET Request
+1. `GET` Request
 
     http://localhost:8080/api/items (To display all items)
     http://localhost:8080/api/items (To display item with id 1)
@@ -66,21 +82,21 @@ Sample data:
     Example
     ![get-request-result](resthub/images/get-request-result.PNG)
 
-2. POST Request
+2. `POST` Request
 
     http://localhost:8080/api/items (To add an item)
     
     Example
     ![post-request-result](resthub/images/post-request-result.PNG)
     
-3. PUT Request
+3. `PUT` Request
 
     http://localhost:8080/api/items/1 (Update item with id 1)
 
     Example
     ![put-request-result](resthub/images/put-request-result.PNG)
 
-4. DELETE Request
+4. `DELETE` Request
 
     http://localhost:8080/api/items/1 (Delete item with id 1)
 
