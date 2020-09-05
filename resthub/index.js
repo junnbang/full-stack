@@ -3,6 +3,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let {log} = require('./logger');
+require('dotenv').config();
 
 // Import routes
 let apiRoutes = require("./api-routes")
@@ -14,8 +15,10 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-const DB_NAME = "resthub"
-const DB_URL = 'mongodb://localhost/' + DB_NAME;
+const DB_NAME = "resthub";
+const DB_URL_FOR_DEV = 'mongodb://localhost/' + DB_NAME;
+const DB_URL_FOR_PROD = "mongodb+srv://junbang:" + process.env.DATABASE_PASS + "@cluster0.qu07u.mongodb.net/" + DB_NAME + "?retryWrites=true&w=majority"
+const DB_URL = (process.env.NODE_ENV == "development") ? DB_URL_FOR_DEV : DB_URL_FOR_PROD;
 const DB_OPTIONS = {
   useNewUrlParser: true, 
   useUnifiedTopology: true,
