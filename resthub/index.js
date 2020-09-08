@@ -33,7 +33,8 @@ const DB_OPTIONS = {
 mongoose.connect(DB_URL, DB_OPTIONS, (err) => {
   if (err) {
     log("Database", "Error connecting database.")
-    app.emit('dbFail');
+    log("Server", "Shutting down.")
+    process.exit(0);
     return ;
   }
   log("Database", "Database connected successfully. [Database hosted on: " + DB_URL + "]");

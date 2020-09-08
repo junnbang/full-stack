@@ -7,7 +7,7 @@ var counterSchema = mongoose.Schema({
 var Counter = mongoose.model('counter', counterSchema);
 
 // insert data
-var dataCounter = new Counter({seq: 1});
+var dataCounter = new Counter({seq: 0});
 var counterToUpdate = { _id: 'item_id' };
 var counterToInsert = { $setOnInsert: dataCounter };
 var options = { upsert: true };
