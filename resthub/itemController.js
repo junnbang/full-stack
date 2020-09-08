@@ -23,15 +23,15 @@ function createItem(req, res) {
   newItem.price = req.body.price;
   newItem.seller_info = req.body.seller_info;
 
-  newItem.save(function (err) {
+  newItem.save(function (err, data) {
     if (err) {
-      console.log(err);
       res.json(err);
       return ;
     }
 
     res.json({
-      message: 'New Item created!'
+      message: 'New Item created!',
+      data: data
     });
   });
 }

@@ -15,22 +15,29 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-const DB_NAME = "resthub";
+// use 'testhub' as database for testing
+// use 'resthub' as database for development and production
+const DB_NAME = (process.env.NODE_ENV == "test") ? "testhub" : "resthub";
 const DB_URL_FOR_DEV = 'mongodb://localhost/' + DB_NAME;
 const DB_URL_FOR_PROD = "mongodb+srv://junbang:" + process.env.DATABASE_PASS + "@cluster0.qu07u.mongodb.net/" + DB_NAME + "?retryWrites=true&w=majority"
-const DB_URL = (process.env.NODE_ENV == "development") ? DB_URL_FOR_DEV : DB_URL_FOR_PROD;
+// use hosted database on mongodb atlas for production
+// use local database for development
+const DB_URL = (process.env.NODE_ENV == "production") ? DB_URL_FOR_PROD : DB_URL_FOR_DEV;
 const DB_OPTIONS = {
   useNewUrlParser: true, 
   useUnifiedTopology: true,
   useFindAndModify: false,
-  useCreateIndex: true
+  useCreateIndex: true,
+  serverSelectionTimeoutMS: 5000,
 }
 mongoose.connect(DB_URL, DB_OPTIONS, (err) => {
   if (err) {
     log("Database", "Error connecting database.")
+    app.emit('dbFail');
     return ;
   }
-  log("Database", "Database connected successfully.");
+  log("Database", "Database connected successfully. [Database hosted on: " + DB_URL + "]");
+  app.emit('dbReady');
 });
 
 // Routes
@@ -41,5 +48,7 @@ app.get('/', (req, res) => res.send("Welcome to Jun Bang's server."));
 var port = process.env.PORT || 8080;
 var environment = process.env.Node_ENV;
 app.listen(port, function () {
-     log("Server", "Running RestHub on port " + port + ". [State: " + environment + "]");
+  log("Server", "Running RestHub on port " + port + ". [State: " + environment + "]");
 });
+
+module.exports = app;

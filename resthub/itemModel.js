@@ -50,6 +50,7 @@ itemSchema.pre('save', function (next) {
 var Item = mongoose.model('items', itemSchema);
 
 // insert sample data
+/*
 var data = {
 	"name": "Canned Food",
 	"quantity": 10,
@@ -67,6 +68,7 @@ Item.updateOne(itemToUpdate, itemToInsert, options, (err, data) => {
 	if (err) console.error(err);
 	log("Database", "Sample data added.");
 })
+*/
 
 // Export module (model) to make it accessible to other commponents
 module.exports = Item;
