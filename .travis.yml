@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - 12
+
+services:
+  - mongodb
+
+env:
+  - TEST_DIR=resthub
+  
+script:
+ - cd $TEST_DIR && npm install && npm test
