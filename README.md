@@ -16,7 +16,7 @@ This project is split into 4 parts. Note that each part builds on the previous p
     1. [Example of API Calls using Postman](#Example-of-API-Calls-using-Postman)
 1. Part 2
     1. [Instructions on how to run tests locally](#Instructions-on-how-to-run-tests-locally)
-    1. [Instructions on how is Travis used for automated testing](#Instructions-on-how-Travis-used-for-automated-testing)
+    1. [Instructions on how Travis is used for automated testing](#Instructions-on-how-Travis-is-used-for-automated-testing)
 
 # Part 1
 A simple RESTFUL API that manages a list of inventory items. This is done via GET, POST, PUT, DELETE API calls locally or through deployed endpoints using Postman.
@@ -139,7 +139,7 @@ Tech Stack:
 
     ![test-result](resthub/images/test-result.PNG)
 
-## Instructions on how Travis used for automated testing
+## Instructions on how Travis is used for automated testing
 1. To use Travis to automate testing, `.travis.yml` file is configured and placed under the root folder. In this case, it triggers a build under the directory, `resthub`.
     
     ```
