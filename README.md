@@ -66,9 +66,9 @@ Tech Stack:
     > http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/
 - Database (*MongoDB*) is deployed on `MongoDB Atlas`.
 
-*NOTE: This is deployed on Amazon EC2 which is not serverless. For deploying API to serverless service, please refer to [Part 3](#Part-3).*
+*NOTE: This is deployed on `Amazon EC2` which is not serverless. For deploying API to serverless service, please refer to [Part 3](#Part-3).*
 
-### Instructions to access deployed endpoints on Amazon EC2 using Postman
+### Instructions to access deployed endpoints on `Amazon EC2` using Postman
 1. To access the deployed endpoints, open up your browser or `Postman`, and enter the following links to do a GET request:
 
     http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/api/items (To display all items)
@@ -148,13 +148,13 @@ Tech Stack:
 2. Before running the test, start the database by typing `npm run mongo`.
     > This Command Prompt must remain **open** for the *database* to run.
 
-    > The tests are executed using another database which keeps the development/production database clean.
+    > To keep the development/production database clean, test cases are executed on another database.
 3. Open another Command Prompt in the same directory, and type `npm run test`. This will execute the test cases. The output is as shown below.
 
     ![test-result](resthub/images/test-result.PNG)
 
 ## How Travis is used for automated testing
-1. To use Travis to automate testing, `.travis.yml` file is configured and placed under the root folder. In this case, it triggers a build under the directory, `resthub`.
+1. To use `Travis` to automate testing, `.travis.yml` file is configured and placed under the root folder. In this case, it will trigger a build under the directory, `resthub`.
     
     ```
     language: node_js
@@ -170,7 +170,7 @@ Tech Stack:
     script:
     - cd $TEST_DIR && npm install && npm test
     ```
-2. For every commit to `master` branch, **Travis** will automatically trigger a build. It will check if the recent commit can pass all the test cases. 
+2. For every commit to `master` branch, `Travis` will automatically trigger a build. It will check if the recent commit can pass all the test cases. 
 
     To view the most recent build:
 
@@ -188,7 +188,7 @@ Tech Stack:
 - CD Tool: `Travis`
 - Cloud Database: `MongoDB Atlas`
 
-## How to access deployed endpoints on AWS Lambda using Postman
+## How to access deployed endpoints on `AWS Lambda` using Postman
 1. To access the deployed endpoints, open up your browser or `Postman`, and enter the following links to do a GET request:
 
     https://ce3doudffc.execute-api.ap-southeast-1.amazonaws.com/dev/api/items (To display all items)
@@ -201,7 +201,7 @@ Tech Stack:
     > https://ce3doudffc.execute-api.ap-southeast-1.amazonaws.com/dev/ in the examples.
 
 ## How Travis is used for automated deployment
-1. To deploy the API to a serverless service, it uses the `serverless` framework to deploy to AWS Lamda. The serverless config is in `.serverless.yml` under `resthub` folder.
+1. To deploy the API to a serverless service, it uses the `serverless` framework to deploy to `AWS Lambda`. The serverless config is in `.serverless.yml` under `resthub` folder.
     > *NOTE*: The `MongoDB Atlas's User Access Credentials` have to be input in the `ENVIRONMENT VARIABLES` in `AWS Lambda`'s setting so that the AWS Lambda can connect to the MongoDB Atlas's cloud database.
 
     Screenshot of deployed endpoints:
