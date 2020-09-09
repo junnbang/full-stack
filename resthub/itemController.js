@@ -43,8 +43,16 @@ function getAnItem(req, res) {
       return;
     }
 
+    if (!data) {
+      res.json({
+        message: 'Item not found. Please use the correct _id.',
+        data: data
+      });
+      return ;
+    }
+
     res.json({
-      message: 'Item details loading..',
+      message: 'Item found.',
       data: data
     });
   });

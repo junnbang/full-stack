@@ -3,23 +3,35 @@
 ![Travis](https://travis-ci.org/junnbang/full-stack.svg?branch=master)
 
 # About Project
+A full-stack application that manages inventory items.
+
 This project is split into 4 parts. Note that each part builds on the previous part. 
 - Part 1: Create RESTFUL API and deploy endpoints.
-- Part 2: Create test cases and integrate Continuous Integration tool
+- Part 2: Create test cases and integrate Continuous Integration(CI) tool.
+- Part 3: Deploy API endpoints to serverless service and integrate Continuous Deployment(CD) tool.
+
+# About Files
+- resthub (Server folder)
+    - data (to store database data)
+    - images (images used in README)
+    - test (test cases)
 
 # Content Page
 1. Part 1
     1. [Install](#install)
-    1. [Instructions on how to run the API locally](#Instructions-on-how-to-run-the-API-locally)
+    1. [How to run the API locally](#How-to-run-the-API-locally)
     1. [Deploying endpoints](#Deploying-endpoints)
     1. [Database Data Structure](#Database-Data-Structure)
     1. [Example of API Calls using Postman](#Example-of-API-Calls-using-Postman)
 1. Part 2
-    1. [Instructions on how to run tests locally](#Instructions-on-how-to-run-tests-locally)
-    1. [Instructions on how Travis is used for automated testing](#Instructions-on-how-Travis-is-used-for-automated-testing)
+    1. [How to run tests locally](#How-to-run-tests-locally)
+    1. [How Travis is used for automated testing](#How-Travis-is-used-for-automated-testing)
+1. Part 3
+    1. [How to access deployed endpoints on AWS Lambda using Postman](#How-to-access-deployed-endpoints-on-AWS-Lambda-using-Postman)
+    1. [How Travis is used for automated deployment](#how-Travis-is-used-for-automated-deployment)
 
 # Part 1
-A simple RESTFUL API that manages a list of inventory items. This is done via GET, POST, PUT, DELETE API calls locally or through deployed endpoints using Postman.
+Create a simple RESTFUL API that manages inventory items. This is done via GET, POST, PUT, DELETE API calls locally or through deployed endpoints using Postman.
 
 Tech Stack:
 - SERVER: `NodeJS`
@@ -32,7 +44,7 @@ Tech Stack:
 - [Postman](https://www.postman.com/downloads/)
 
 
-## Instructions on how to run the API locally
+## How to run the API locally
 1. Download or Clone the repository.
 2. Open Command Prompt and change your directory to `resthub` by typing `cd resthub`.
 3. To start the database (*MongoDB*), type `npm run mongo`. 
@@ -54,7 +66,9 @@ Tech Stack:
     > http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/
 - Database (*MongoDB*) is deployed on `MongoDB Atlas`.
 
-### Instructions to access deployed endpoints using Postman
+*NOTE: This is deployed on Amazon EC2 which is not serverless. For deploying API to serverless service, please refer to [Part 3](#Part-3).*
+
+### Instructions to access deployed endpoints on Amazon EC2 using Postman
 1. To access the deployed endpoints, open up your browser or `Postman`, and enter the following links to do a GET request:
 
     http://resthubserver-env.eba-ykb43kxe.us-east-2.elasticbeanstalk.com/api/items (To display all items)
@@ -125,11 +139,11 @@ Sample data:
 Create test cases for the API calls and use Continuous Integration(CI) tool to automate testing.
 
 Tech Stack:
-- Testing Framework: Mocha
-- Assertion Library: Chai
-- CI Tool: Travis
+- Testing Framework: `Mocha`
+- Assertion Library: `Chai`
+- CI Tool: `Travis`
 
-## Instructions on how to run tests locally
+## How to run tests locally
 1. Under `resthub` directory, type `npm install` to download all dependencies.
 2. Before running the test, start the database by typing `npm run mongo`.
     > This Command Prompt must remain **open** for the *database* to run.
@@ -139,7 +153,7 @@ Tech Stack:
 
     ![test-result](resthub/images/test-result.PNG)
 
-## Instructions on how Travis is used for automated testing
+## How Travis is used for automated testing
 1. To use Travis to automate testing, `.travis.yml` file is configured and placed under the root folder. In this case, it triggers a build under the directory, `resthub`.
     
     ```
@@ -156,7 +170,7 @@ Tech Stack:
     script:
     - cd $TEST_DIR && npm install && npm test
     ```
-2. For every commit to `master` branch, **Travis** will automatically trigger a build. This will check if the recent commit can pass all the test cases. 
+2. For every commit to `master` branch, **Travis** will automatically trigger a build. It will check if the recent commit can pass all the test cases. 
 
     To view the most recent build:
 
@@ -164,3 +178,33 @@ Tech Stack:
 
     Screenshot of Travis Build:
     ![travis-result](resthub/images/travis-test.PNG)
+
+# Part 3
+Deploy API calls to serverless service and use Continuous Deployment(CD) tool to automate deployment.
+
+Tech Stack:
+- Serverless service: `AWS Lambda`
+- Serverless framework: `serverless`
+- CD Tool: `Travis`
+- Cloud Database: `MongoDB Atlas`
+
+## How to access deployed endpoints on AWS Lambda using Postman
+1. To access the deployed endpoints, open up your browser or `Postman`, and enter the following links to do a GET request:
+
+    https://ce3doudffc.execute-api.ap-southeast-1.amazonaws.com/dev/api/items (To display all items)
+
+    https://ce3doudffc.execute-api.ap-southeast-1.amazonaws.com/dev/api/items/1 (To display item with id 1)
+
+    *It uses `/api/items` route, which is the same as the localhost.*
+2. For the other type of request, refer to the [API Calls](#Example-of-API-Calls-using-postman) below for examples. 
+    > Replace http://localhost:8080/ with
+    > https://ce3doudffc.execute-api.ap-southeast-1.amazonaws.com/dev/ in the examples.
+
+## How Travis is used for automated deployment
+1. To deploy the API to a serverless service, it uses the `serverless` framework to deploy to AWS Lamda. The serverless config is in `.serverless.yml` under `resthub` folder.
+    > *NOTE*: The `MongoDB Atlas's User Access Credentials` have to be input in the `ENVIRONMENT VARIABLES` in `AWS Lambda`'s setting so that the AWS Lambda can connect to the MongoDB Atlas's cloud database.
+
+    Screenshot of deployed endpoints:
+    ![serverless-result](resthub/images/serverless-result.PNG)
+2. To automate the deployment, `Travis` is used as a CD tool. For every commit to `master` branch, `Travis` will automatically trigger a build and check if it passes all the test cases. If it passes all test cases, the latest version will automatically be deployed to AWS Lambda.
+    > *NOTE*: The `AWS's User Access Credentials` have to be input in the `ENVIRONMENT VARIABLES` in `Travis`'s setting so that Travis can automatically connect to the AWS Lambda and deploy the latest version.
