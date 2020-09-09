@@ -156,9 +156,11 @@ Tech Stack:
     script:
     - cd $TEST_DIR && npm install && npm test
     ```
-2. For every commit to `master` branch, **Travis** will automatically trigger a build. This will check if the recent commit can pass all the test cases.
+2. For every commit to `master` branch, **Travis** will automatically trigger a build. This will check if the recent commit can pass all the test cases. 
 
-    View the most recent build at https://travis-ci.org/github/junnbang/full-stack .
+    To view the most recent build:
+
+    https://travis-ci.org/github/junnbang/full-stack
 
     Screenshot of Travis Build:
     ![travis-result](resthub/images/travis-test.PNG)
