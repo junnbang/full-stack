@@ -5,8 +5,13 @@ node_js:
 services:
   - mongodb
 
+cache: npm
+
 env:
   - TEST_DIR=resthub
 
 script:
- - cd $TEST_DIR && npm install && npm test
+  - cd $TEST_DIR && npm install && npm test
+
+after_success:
+  - serverless deploy
