@@ -188,6 +188,9 @@ Tech Stack:
 - CD Tool: `Travis`
 - Cloud Database: `MongoDB Atlas`
 
+Screenshot of AWS Lambda application:
+![aws-lambda](resthub/images/aws-lambda.PNG)
+
 ## How to access deployed endpoints on `AWS Lambda` using Postman
 1. To access the deployed endpoints, open up your browser or `Postman`, and enter the following links to do a GET request:
 
