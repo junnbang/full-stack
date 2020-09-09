@@ -89,7 +89,7 @@ describe('TEST for GET, POST, PUT, DELETE API Calls.', function () {
             item.should.have.property('name');
             item.should.have.property('quantity');
             assert.equal(item.name, itemName);
-            assert.equal(item.quantity, 2);
+            assert.equal(item.quantity, quantity);
             done();
           })
     })
