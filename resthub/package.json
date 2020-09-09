@@ -4,7 +4,7 @@
   "description": "An app to demonstrate Restful API.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "set Node_ENV=production& node index.js",
     "dev": "set Node_ENV=development& nodemon index.js",
     "mongo": "mongod --dbpath=./data/db"
