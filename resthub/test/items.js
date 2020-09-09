@@ -7,7 +7,7 @@ var assert = require('assert');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let server = require('../index');
+let {server} = require('../index');
 
 chai.use(chaiHttp);
 
@@ -31,8 +31,15 @@ describe('TEST for GET, POST, PUT, DELETE API Calls.', function () {
     // empty database
     Item.deleteMany({}, (err) => { 
       done();     
-   });
+    });
   });
+
+  after(function(done) {
+    // empty database
+    Item.deleteMany({}, (err) => { 
+      done();     
+    });
+  })
   
   // test cases
   describe('GET REQUEST /api/items', function () {

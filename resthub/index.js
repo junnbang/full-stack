@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let {log} = require('./logger');
 require('dotenv').config();
+const serverless = require('serverless-http');
 
 // Import routes
 let apiRoutes = require("./api-routes")
@@ -52,4 +53,7 @@ app.listen(port, function () {
   log("Server", "Running RestHub on port " + port + ". [State: " + environment + "]");
 });
 
-module.exports = app;
+module.exports = {
+  server: app,
+  handler: serverless(app)
+}
