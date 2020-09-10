@@ -9,6 +9,17 @@ const serverless = require('serverless-http');
 // Import routes
 let apiRoutes = require("./api-routes")
 
+// CORS Policy
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  );
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+  next();
+});
+
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
   extended: true

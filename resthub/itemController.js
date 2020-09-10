@@ -77,8 +77,10 @@ function deleteItem(req, res) {
   Item.deleteOne({
     _id: req.params.item_id
   }, function (err, data) {
-    if (err)
+    if (err) {
       res.send(err);
+      return ;
+    }
     res.json({
       status: "success",
       message: 'Item deleted',
