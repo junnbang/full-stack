@@ -9,12 +9,17 @@ This project is split into 4 parts. Note that each part builds on the previous p
 - Part 1: Create RESTFUL API and deploy endpoints.
 - Part 2: Create test cases and integrate Continuous Integration(CI) tool.
 - Part 3: Deploy API endpoints to serverless service and integrate Continuous Deployment(CD) tool.
+- Part 4: Build a frontend SPA
 
 # About Files
 - resthub (Server folder)
     - data (to store database data)
     - images (images used in README)
     - test (test cases)
+- vue-client (Client folder)
+    - src
+        - components (Reusable components)
+        - assets (images, etc)
 
 # Content Page
 1. Part 1
@@ -29,6 +34,8 @@ This project is split into 4 parts. Note that each part builds on the previous p
 1. Part 3
     1. [How to access deployed endpoints on AWS Lambda using Postman](#How-to-access-deployed-endpoints-on-AWS-Lambda-using-Postman)
     1. [How Travis is used for automated deployment](#how-Travis-is-used-for-automated-deployment)
+1. Part 4
+    1. [How to setup the frontend client](#How-to-setup-the-frontend-client)
 
 # Part 1
 Create a simple RESTFUL API that manages inventory items. This is done via GET, POST, PUT, DELETE API calls locally or through deployed endpoints using Postman.
@@ -211,3 +218,32 @@ Screenshot of AWS Lambda application:
     ![serverless-result](resthub/images/serverless-result.PNG)
 2. To automate the deployment, `Travis` is used as a CD tool. For every commit to `master` branch, `Travis` will automatically trigger a build and check if it passes all the test cases. If it passes all test cases, the latest version will automatically be deployed to AWS Lambda.
     > *NOTE*: The `AWS's User Access Credentials` have to be input in the `ENVIRONMENT VARIABLES` in `Travis`'s setting so that Travis can automatically connect to the AWS Lambda and deploy the latest version.
+
+# Part 4
+Build a frontend client and styling it using framework.
+
+Tech Stack:
+- Frontend framework: `Vuejs`
+- CSS framework: `bootstrap-vue`
+
+Screenshot of Frontend application:
+![frontend-dashboard](vue-client/src/assets/frontend-dashboard.PNG)
+
+Screenshot of form used to add and edit record:
+![frontend-form](vue-client/src/assets/frontend-form.PNG)
+
+## How to setup the frontend client
+1. Ensure that the database and server is running first. Refer to [Setup](#How-to-run-the-API-locally) if server is not setup.
+2. Open Command Prompt and go to `vue-client` directory.
+3. To download the dependencies, type `npm install`.
+4. To start the client, type `npm run serve`. The output should be as shown below:
+    
+    ![frontend-start](vue-client/src/assets/frontend-start.PNG)
+5. Go to browser and type http://localhost:8081. You should see the home page as [above](#Part-4).
+6. To interact with the API, click on `Add a Record` for manual inputs or `Add a Sample Record` for ease of use.
+7. After a record has been added, it can be edited or deleted by clicking the buttons in their respective rows.
+> *NOTE: The API is linked to the localhost and NOT the deployed endpoints.*
+
+
+---------
+*This project is built for CS3219 OTOT-assignment.*
