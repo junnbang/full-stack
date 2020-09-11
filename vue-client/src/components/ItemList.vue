@@ -2,19 +2,18 @@
   <div>
     <b-table 
       sticky-header
-      responsive
-      striped 
-      hover
-      small
+      striped
       show-empty
-      outlined
-      head-variant="light" 
+      head-variant="dark" 
       v-bind:items="items" 
       v-bind:fields="fields"
       >
       <template v-slot:cell(actions)="row">
+        <b-button variant="outline-success" v-on:click="editItem(row.item)">
+          <b-icon icon="pencil-square"></b-icon>
+        </b-button>
         <b-button variant="outline-danger" v-on:click="deleteItem(row.item._id)">
-          <b-icon icon="trash" variant="danger"></b-icon>
+          <b-icon icon="trash"></b-icon>
         </b-button>
       </template>
     </b-table>
@@ -71,6 +70,9 @@ var ItemList = {
   methods: {
     deleteItem(itemId) {
       this.$emit('delete-item', itemId);
+    },
+    editItem(item) {
+      this.$emit('edit-item', item);
     }
   }
 };

@@ -105,48 +105,50 @@ var ItemForm = {
       type: String,
       required: true,
       default: ''
+    },
+    onSubmitForm: {
+      type: Function,
+      require: true,
+      default: () => null
+    },
+    formItem: {
+      type: Object
     }
   },
   data() {
     let dataObj = {
-      item: {
-        name: '',
-        quantity: "",
-        price: "",
-        seller_info: {
-          name: "",
-          phone: ""
-        }
-      },
-      inputError: []
+      item: this.formItem
     }
-    
+
     return dataObj;
   },
-   methods: {
-      resetModal() {
-        this.item = {
-          name: '',
-          quantity: "",
-          price: "",
-          seller_info: {
-            name: "",
-            phone: ""
-          }
-        }
-      },
-      onSubmit(e) {
-        e.preventDefault();
-        if (!this.$refs.form.checkValidity()) {
-          return ;
-        }
-
-        this.$emit('add-item', this.item);
-        this.$nextTick(() => {
-          this.$bvModal.hide('modal-itemForm')
-        })
+  methods: {
+    resetModal() {
+    },
+    onSubmit(e) {
+      e.preventDefault();
+      if (!this.$refs.form.checkValidity()) {
+        return ;
       }
+
+      this.onSubmitForm(this.item);
+      this.$nextTick(() => {
+        this.$bvModal.hide('modal-itemForm')
+      })
     }
+  },
+  watch: {
+    formItem(newItem) {
+      let updatedItem = {
+        _id: newItem._id,
+        name: newItem.name,
+        quantity: newItem.quantity,
+        price: newItem.price,
+        seller_info: newItem.seller_info
+      }
+      this.item = JSON.parse(JSON.stringify(updatedItem));
+    }
+  }
 };
 
 export default ItemForm;
