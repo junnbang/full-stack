@@ -1,6 +1,17 @@
 <template>
   <div>
-    <b-table sticky-header striped hover v-bind:items="items" v-bind:fields="fields" show-empty>
+    <b-table 
+      sticky-header
+      responsive
+      striped 
+      hover
+      small
+      show-empty
+      outlined
+      head-variant="light" 
+      v-bind:items="items" 
+      v-bind:fields="fields"
+      >
       <template v-slot:cell(actions)="row">
         <b-button variant="outline-danger" v-on:click="deleteItem(row.item._id)">
           <b-icon icon="trash" variant="danger"></b-icon>
@@ -38,8 +49,8 @@ var ItemList = {
           },
           {
             key: 'price',
-            sortable: true,
-            formatter: (value) => value['$numberDecimal']
+            label: 'Price ($)',
+            sortable: true
           },
           {
             key: 'seller_info.name',

@@ -1,14 +1,24 @@
 <template>
   <div id="app" fluid>
     <NavBar :title="title" :logo="image" />
+    
+    <ItemForm 
+      title="Add a record"
+      v-on:add-item="addItem"
+      />
+
     <b-container fluid>
       <b-col>
-      </b-col>
-    </b-container>
-    <b-container fluid>
-      <b-col>
-        <h2 class="mt-3">My Inventory</h2>
-        <hr />
+        <b-row>
+          <b-col>
+            <h2 class="mt-3">My Inventory</h2>
+          </b-col>
+          <b-col class="text-right align-self-center">
+            <b-button variant="outline-success" v-b-modal.modal-itemForm>
+              <b-icon icon="plus-square" aria-hidden="true"></b-icon> Add a record
+            </b-button>
+          </b-col>
+        </b-row>
       </b-col>
       <b-col>
         <ItemList 
@@ -25,6 +35,7 @@ import axios from 'axios';
 
 import config from './config';
 import ItemList from './components/ItemList.vue';
+import ItemForm from './components/ItemForm.vue';
 import NavBar from './components/NavBar';
 
 var app = {
@@ -39,7 +50,8 @@ var app = {
   },
   components: {
     NavBar,
-    ItemList
+    ItemList,
+    ItemForm
   },
   methods: {
     getAllItems: function() {
@@ -56,7 +68,6 @@ var app = {
       axios
         .delete(config.SERVER_URL + "/api/items/" + id)
         .then(res => {
-          console.log(res);
           if (res.status == 200 && res.data.data.deletedCount == 1) {
             var deleteMessage = "Item (ID: " + id + ") has been deleted.";
             this.items = this.items.filter(item => item._id != id);
@@ -65,6 +76,26 @@ var app = {
         })
         .catch(err => {
           console.log(err);
+        })
+    },
+    addItem: function(item) {
+      axios
+        .post(config.SERVER_URL + "/api/items", item)
+        .then(res => {
+          console.log(res);
+          if (res.status == 200 && res.data.data) {
+            let createdItem = res.data.data;
+            var addedMessage = item.name + " has been added. (Quantity: " + item.quantity + ")";
+            let newItem = {
+              _id: createdItem._id,
+              name: createdItem.name,
+              quantity: createdItem.quantity,
+              price: createdItem.price,
+              seller_info: createdItem.seller_info
+            }
+            this.items.push(newItem);
+            this.makeToast('info', addedMessage);
+          }
         })
     },
     makeToast(variant = null, message) {
@@ -93,5 +124,8 @@ export default app;
 #logo {
   height: 60px;
   width: 60px;
+}
+.right-middle {
+  text-align: center;
 }
 </style>
