@@ -25,7 +25,7 @@ var itemSchema = mongoose.Schema({
 		required: true
 	},
 	price: {
-		type: mongoose.Types.Decimal128
+		type: Number
 	},
 	seller_info: {
 		name: String,

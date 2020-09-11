@@ -87,7 +87,7 @@ The database only consists of 1 data structure which is `items`.
 It consists of the following fields: (FORMAT: [NAME : DATATYPE])
 - name: `string` (required)
 - quantity: `Number` (required)
-- price: `Decimal`
+- price: `Number`
 - seller_info
   - name: `string`
   - phone: `string`

@@ -7,6 +7,7 @@ function getAllItems(req, res) {
         status: "error",
         message: err,
       });
+      return ;
     }
     res.json({
       status: "success",
