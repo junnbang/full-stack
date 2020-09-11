@@ -12,11 +12,14 @@
       <b-col>
         <b-row>
           <b-col>
-            <h2 class="mt-3">My Inventory</h2>
+            <h2 class="mt-3">My Inventory (Total Records: {{totalRecords}})</h2>
           </b-col>
           <b-col class="text-right align-self-center">
+            <b-button variant="outline-dark" v-on:click="addSampleItem" class="mr-1">
+              <b-icon icon="plus-square" aria-hidden="true"></b-icon> Add a Sample Record
+            </b-button>
             <b-button variant="outline-success" v-on:click="openAddForm">
-              <b-icon icon="plus-square" aria-hidden="true"></b-icon> Add a record
+              <b-icon icon="plus-square" aria-hidden="true"></b-icon> Add a Record
             </b-button>
           </b-col>
         </b-row>
@@ -124,6 +127,33 @@ var app = {
           console.log(err);
         })
     },
+    addSampleItem: function() {
+      let itemNameList = ["Sofa", "Washing Machine", "Television", "iPhone", "Air-Conditioner" ];
+      let nameList = ["Chloe", "Johnson", "Alex", "Erwin", "Louis"];
+      let newItem = {
+        name: itemNameList[Math.floor(Math.random() * itemNameList.length)],
+        quantity: Math.floor(Math.random() * 10) + 1,
+        price: Math.floor(Math.random() * 1000) + 1000,
+        seller_info: {
+          name: nameList[Math.floor(Math.random() * nameList.length)],
+          phone: 80000000 + Math.floor(Math.random() * 10000000)
+        }
+      };
+
+      axios
+        .post(config.SERVER_URL + "/api/items", newItem)
+        .then(res => {
+          if (res.status == 200 && res.data.data) {
+            var addedMessage = newItem.name + " has been added. (Quantity: " + newItem.quantity + ") [SAMPLE DATA]";
+            var sampleItem = res.data.data;
+            this.items.push(sampleItem);
+            this.makeToast('success', addedMessage);
+          } else {
+            let errorMessage = res.data.message;
+            this.makeToast('danger', errorMessage);
+          }
+        });
+    },
     addItem: function(item) {
       axios
         .post(config.SERVER_URL + "/api/items", item)
@@ -181,6 +211,11 @@ var app = {
   },
   mounted() {
     this.getAllItems();
+  },
+  computed: {
+    totalRecords: function() {
+      return this.items.length;
+    }
   }
 };
 
