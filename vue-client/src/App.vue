@@ -8,18 +8,36 @@
       :formItem="formItem"
     />
 
+    <b-container class="mt-3" fluid>
+      <b-col>
+        <h2 class="mt-3">
+        <b-icon icon="bar-chart" variant="danger" font-scale="1"></b-icon>
+        Statistics
+      </h2>
+      </b-col>
+      <b-col class="row">
+        <StatisticsCard iconName="graph-up" iconColor="#FF8686" :statNo="this.items.length" description="Records" />
+        <StatisticsCard iconName="cash-stack" iconColor="#00A30E" :statNo="Math.max(...this.items.map(item => (item.price) ? parseFloat(item.price) : 0), 0)" description="Highest Price ($)" />
+      </b-col>
+    </b-container>
+
+    <hr />
+
     <b-container fluid>
       <b-col>
         <b-row>
           <b-col>
-            <h2 class="mt-3">My Inventory (Total Records: {{totalRecords}})</h2>
+            <h2 class="mt-3">
+              <b-icon icon="bag-fill" variant="secondary" animation="fade" font-scale="1"></b-icon>
+              Inventory
+            </h2>
           </b-col>
           <b-col class="text-right align-self-center">
             <b-button variant="outline-dark" v-on:click="addSampleItem" class="mr-1">
-              <b-icon icon="plus-square" aria-hidden="true"></b-icon> Add a Sample Record
+              <b-icon icon="bag-plus" aria-hidden="true"></b-icon> Add a Sample Record
             </b-button>
-            <b-button variant="outline-success" v-on:click="openAddForm">
-              <b-icon icon="plus-square" aria-hidden="true"></b-icon> Add a Record
+            <b-button variant="outline-info" v-on:click="openAddForm">
+              <b-icon icon="bag-plus" aria-hidden="true"></b-icon> Add a Record
             </b-button>
           </b-col>
         </b-row>
@@ -42,6 +60,7 @@ import config from './config';
 import ItemList from './components/ItemList.vue';
 import ItemForm from './components/ItemForm.vue';
 import NavBar from './components/NavBar';
+import StatisticsCard from './components/StatisticsCard';
 
 const ADD_FORM = 0;
 const EDIT_FORM = 1;
@@ -70,7 +89,8 @@ var app = {
   components: {
     NavBar,
     ItemList,
-    ItemForm
+    ItemForm,
+    StatisticsCard
   },
   methods: {
     onSubmitForm: function(info) {
