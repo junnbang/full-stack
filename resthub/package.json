@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --exit",
-    "start": "set Node_ENV=production& node index.js",
-    "dev": "set Node_ENV=development& nodemon index.js",
+    "start": "cross-env Node_ENV=production& node index.js",
+    "dev": "cross-env Node_ENV=development& node index.js",
     "mongo": "mongod --dbpath=./data/db"
   },
   "keywords": [
@@ -20,6 +20,7 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mocha": "^8.1.3",
